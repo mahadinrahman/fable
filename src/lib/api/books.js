@@ -11,4 +11,6 @@ export const getAllBooks =async()=>{
    return serverGet(`/books`);
 }
 
-
+export const getDetailsBook=async(id)=>{
+    return serverGet(`/books/${id}`);
+}

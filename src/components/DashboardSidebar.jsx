@@ -10,7 +10,7 @@ export async function DashboardSidebar() {
     {icon: House, label: "Home" ,href:"/dashboard/writer"},
     {icon: BookOpenText, label: "Manage Ebooks", href: "/dashboard/writer/books"},
     {icon: Plus, label: "Add Ebook" ,href: "/dashboard/writer/books/new"},
-    {icon: Bookmark, label: "Bookmark Page" ,href: "/dashboard/writer"},
+    {icon: Bookmark, label: "Bookmark Page" ,href: "/dashboard/writer/bookmark"},
     {icon: CreditCard, label: "Sales History",href: "/dashboard/writer"},
     
   ];

@@ -1,7 +1,10 @@
+import { Button } from '@heroui/react';
+import Link from 'next/link'; 
 import React from 'react';
 
 const BooksCard = ({ book }) => {
     const { 
+        _id,
         title, 
         genre, 
         price, 
@@ -50,9 +53,12 @@ const BooksCard = ({ book }) => {
 
             {/* Action Button */}
             <div className="p-4 pt-0">
-                <button className="w-full bg-[#0a0a0a] hover:bg-gray-900 border border-gray-800 text-white text-sm font-medium py-2 rounded transition-colors duration-200">
-                    View Details
-                </button>
+                {/* এখানে আমরা সহজভাবে Link এর ভেতর Button ঢুকিয়ে দিয়েছি */}
+                <Link href={`/books/${_id}`} className="w-full block">
+                    <Button className="w-full bg-[#0a0a0a] hover:bg-gray-900 border border-gray-800 text-white text-sm font-medium py-2 rounded transition-colors duration-200">
+                        View Details
+                    </Button>
+                </Link>
             </div>
         </div>
     );

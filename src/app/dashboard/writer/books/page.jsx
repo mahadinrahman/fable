@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import Link from 'next/link'; // 🛠️ Next.js Link ইম্পোর্ট করা হলো
 
 import { getUserSession } from '@/lib/core/session';
 import { getBooksById } from '@/lib/api/books';
@@ -9,7 +10,9 @@ import { delelteBook, updateBook } from '@/lib/actions/books';
 
 const EditIcon = () => <svg className="w-5 h-5 cursor-pointer text-slate-400 hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>;
 const DeleteIcon = () => <svg className="w-5 h-5 cursor-pointer text-slate-400 hover:text-red-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>;
-const ViewIcon = () => <svg className="w-5 h-5 text-slate-500 cursor-not-allowed" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>;
+
+// 🛠️ ViewIcon-এর cursor-not-allowed ক্লাসিটি বাদ দিয়ে একটিভ করা হলো
+const ViewIcon = () => <svg className="w-5 h-5 text-slate-400 hover:text-emerald-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>;
 
 const ManageBooks = () => {
   const [books, setBooks] = useState([]);
@@ -29,7 +32,6 @@ const ManageBooks = () => {
         const user = await getUserSession();
         if (user && user.id) {
           setCurrentUser(user);
-          // দুটি রিকোয়েস্ট একসাথে সমান্তরালে (Parallel) চালানোর জন্য Promise.all ব্যবহার করা হয়েছে, যা গতি বাড়াবে
           const [allPublished, allUnpublished] = await Promise.all([
             getBooksById(user.id, 'published'),
             getBooksById(user.id, 'unpublished')
@@ -49,26 +51,19 @@ const ManageBooks = () => {
     loadUserDataAndBooks();
   }, []);
 
-  // 🔄 সুপার-ফাস্ট স্ট্যাটাস টগল (Instant Feedback)
+  // 🔄 স্ট্যাটাস টগল
   const handleStatusToggle = async (bookId, currentStatus) => {
     const newStatus = currentStatus === 'published' ? 'unpublished' : 'published';
-
-    // ১. সাথে সাথে UI আপডেট
     setBooks((prev) =>
       prev.map((book) => (book._id === bookId ? { ...book, status: newStatus } : book))
     );
-    
-    // ২. সাথে সাথে সাকসেস টোস্ট (ইউজার যেন কোনো ল্যাগ ফিল না করে)
     toast.success(`Book status changed to ${newStatus}`, { autoClose: 1500 });
 
     try {
-      // ৩. ব্যাকগ্রাউন্ডে সার্ভার সিঙ্ক হবে
       await updateBook(bookId, { status: newStatus });
     } catch (error) {
       console.error('Database sync failed:', error);
       toast.error('Sync failed! Reverting back...');
-      
-      // ফেইল করলে রোলব্যাক
       setBooks((prev) =>
         prev.map((book) => (book._id === bookId ? { ...book, status: currentStatus } : book))
       );
@@ -78,8 +73,6 @@ const ManageBooks = () => {
   // 🗑️ ডিলিট হ্যান্ডলার
   const handleDelete = async (bookId) => {
     if (!confirm('Are you sure you want to delete this book permanently?')) return;
-    
-    // ডিলিটকেও অপ্টিমিস্টিক করা হলো: আগে UI থেকে সরাবে, পরে সার্ভারে যাবে
     const originalBooks = [...books];
     setBooks((prev) => prev.filter((book) => book._id !== bookId));
     toast.success('Book deleted successfully', { autoClose: 1500 });
@@ -88,11 +81,10 @@ const ManageBooks = () => {
       await delelteBook(bookId);
     } catch (error) {
       toast.error('Failed to delete from server. Restoring...');
-      setBooks(originalBooks); // ফেইল করলে ডাটা ফেরত আসবে
+      setBooks(originalBooks);
     }
   };
 
-  // 📝 এডিট বাটন ক্লিক হ্যান্ডলার
   const openEditModal = (book) => {
     setEditingBook({ ...book });
     setIsModalOpen(true);
@@ -103,12 +95,10 @@ const ManageBooks = () => {
     setEditingBook((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🌍 মডালের ইমেজ আপলোড (imgBB)
   const handleModalImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // ইমেজ সাইজ ২ MB এর বেশি হলে আপলোড আটকে দেওয়া (স্পীড ঠিক রাখার জন্য)
     if (file.size > 2 * 1024 * 1024) {
       toast.error('Image size should be less than 2MB for faster uploads!');
       return;
@@ -136,14 +126,11 @@ const ManageBooks = () => {
     }
   };
 
-  // মডাল সাবমিট
   const handleModalSubmit = async (e) => {
     e.preventDefault();
     setModalLoading(true);
     
     const { _id, title, genre, price, coverImageUrl, shortDescription, content } = editingBook;
-    
-    // অপ্টিমিস্টিক আপডেট: মডাল সাবমিট করার সাথে সাথেই মডাল বন্ধ ও মেইন টেবিলে ডাটা আপডেট
     setBooks((prev) =>
       prev.map((b) => (b._id === _id ? { ...b, title, genre, price, coverImageUrl, shortDescription, content } : b))
     );
@@ -154,7 +141,6 @@ const ManageBooks = () => {
       await updateBook(_id, { title, genre, price, coverImageUrl, shortDescription, content });
     } catch (error) {
       toast.error('Server update failed. Please refresh.');
-      setModalLoading(false);
     } finally {
       setModalLoading(false);
     }
@@ -228,7 +214,15 @@ const ManageBooks = () => {
 
                     <td className="py-4 px-4">
                       <div className="flex items-center justify-center gap-4">
-                        <ViewIcon />
+                        
+                        {/* 🛠️ এখানে ViewIcon-টিকে ডাইনামিক ডিটেইলস পেজের লিংকে র্যাপ করে দেওয়া হলো */}
+                        <Link 
+                          href={`/books/${book._id}`} 
+                          title="View Details"
+                          className="hover:scale-110 active:scale-95 transition-transform"
+                        >
+                          <ViewIcon />
+                        </Link>
 
                         <button onClick={() => openEditModal(book)} aria-label="Edit book">
                           <EditIcon />
@@ -246,7 +240,7 @@ const ManageBooks = () => {
           </table>
         </div>
 
-        {/* 🪟 এডিট মডাল ফর্ম */}
+        {/* এডিট মডাল ফর্ম */}
         {isModalOpen && editingBook && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
             <div className="w-full max-w-3xl bg-[#02040a] border border-indigo-950 rounded-2xl p-6 shadow-3xl max-h-[90vh] overflow-y-auto custom-scrollbar">
