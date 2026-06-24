@@ -30,11 +30,11 @@ const ManageBooks = () => {
     const loadUserDataAndBooks = async () => {
       try {
         const user = await getUserSession();
-        if (user && user.id) {
+        if (user && user?.id) {
           setCurrentUser(user);
           const [allPublished, allUnpublished] = await Promise.all([
-            getBooksById(user.id, 'published'),
-            getBooksById(user.id, 'unpublished')
+            getBooksById(user?.id, 'published'),
+            getBooksById(user?.id, 'unpublished')
           ]);
           
           const combinedBooks = [...(allPublished || []), ...(allUnpublished || [])];
