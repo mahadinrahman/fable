@@ -18,8 +18,8 @@ export async function DashboardSidebar() {
   const readerNavItems = [
     {icon: House, label: "Home" ,href:"/dashboard/reader"},
     {icon:BookOpenText, label: "Purchase Books" ,href: "/dashboard/reader/purchaseBook"},
+    {icon: HistoryIcon, label: "Purchase History", href: "/dashboard/reader/purchaseHistory"},
     {icon: Bookmark, label: "Bookmark Page" ,href: "/dashboard/reader/bookmark"},
-     {icon: HistoryIcon, label: "Purchase History", href: "/dashboard/reader/purchaseHistory"},
     {icon: Person, label: "Profile Management",href: "/dashboard/reader/profile"},
     
   ];
