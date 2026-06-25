@@ -1,12 +1,13 @@
-import {LayoutSideContentLeft, Plus, Envelope, Gear, House, Briefcase, Magnifier, Bookmark, FileText, CreditCard, } from "@gravity-ui/icons";
+import { getUserSession } from "@/lib/core/session";
+import {LayoutSideContentLeft, Plus, Envelope, Gear, House, Briefcase, Magnifier, Bookmark, FileText, CreditCard, Person, } from "@gravity-ui/icons";
 import {Button, Drawer} from "@heroui/react";
-import { BookOpenText, Building, NewspaperIcon, Users } from "lucide-react";
+import { BookOpenText, Building, HistoryIcon, NewspaperIcon, Users } from "lucide-react";
 import Link from "next/link";
 
 export async function DashboardSidebar() {
-  
-
-  const navItems = [
+   const user=await getUserSession();
+   console.log(user);
+  const writerNavItems = [
     {icon: House, label: "Home" ,href:"/dashboard/writer"},
     {icon: BookOpenText, label: "Manage Ebooks", href: "/dashboard/writer/books"},
     {icon: Plus, label: "Add Ebook" ,href: "/dashboard/writer/books/new"},
@@ -14,8 +15,21 @@ export async function DashboardSidebar() {
     {icon: CreditCard, label: "Sales History",href: "/dashboard/writer/sales"},
     
   ];
+  const readerNavItems = [
+    {icon: House, label: "Home" ,href:"/dashboard/reader"},
+    {icon:BookOpenText, label: "Purchase Books" ,href: "/dashboard/reader/purchaseBook"},
+    {icon: Bookmark, label: "Bookmark Page" ,href: "/dashboard/reader/bookmark"},
+     {icon: HistoryIcon, label: "Purchase History", href: "/dashboard/reader/purchaseHistory"},
+    {icon: Person, label: "Profile Management",href: "/dashboard/reader/profile"},
+    
+  ];
 
-  
+   const navLinksMap={
+    writer:writerNavItems,
+    reader:readerNavItems,
+    
+  }
+  const navItems=navLinksMap[user?.role || 'reader'];
 
   
 

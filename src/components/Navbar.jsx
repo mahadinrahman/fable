@@ -45,6 +45,23 @@ const Navbar = () => {
             Browse Books
           </button></Link>
 
+           {
+              user?.role === "reader" ? (
+                <Link href="/dashboard/reader" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+                Dashboard
+          </button></Link>
+              ) : user?.role === "writer" ? (
+                <Link href="/dashboard/writer" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+            Dashboard
+          </button></Link>
+              ) : (
+                <Link href="/dashboard/admin" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+            Dashboard
+          </button></Link>
+              )
+            }
+
+
           <div className="h-5 w-[1px] bg-indigo-500/30"></div>
              {
              user?
@@ -99,6 +116,24 @@ const Navbar = () => {
             Browse Books
           </button></Link>
           
+          
+           {
+              user?.role === "reader" ? (
+                <Link href="/dashboard/reader" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+                Dashboard
+          </button></Link>
+              ) : user?.role === "writer" ? (
+                <Link href="/dashboard/writer" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+            Dashboard
+          </button></Link>
+              ) : (
+                <Link href="/dashboard/admin" className="hover:text-white transition-colors"><button className="px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-950/40 text-sm font-medium hover:bg-indigo-900/50 hover:border-indigo-500/60 transition-all duration-300 backdrop-blur-sm">
+            Dashboard
+          </button></Link>
+              )
+            }
+
+            
           <div className="w-full h-[1px] bg-indigo-500/20"></div>
           
           {
