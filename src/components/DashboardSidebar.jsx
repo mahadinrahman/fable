@@ -1,7 +1,7 @@
 import { getUserSession } from "@/lib/core/session";
 import {LayoutSideContentLeft, Plus, Envelope, Gear, House, Briefcase, Magnifier, Bookmark, FileText, CreditCard, Person, } from "@gravity-ui/icons";
 import {Button, Drawer} from "@heroui/react";
-import { BookOpenText, Building, HistoryIcon, NewspaperIcon, Users } from "lucide-react";
+import { BookOpenText, Building, CreditCardIcon, HistoryIcon, NewspaperIcon, Users } from "lucide-react";
 import Link from "next/link";
 
 export async function DashboardSidebar() {
@@ -23,11 +23,19 @@ export async function DashboardSidebar() {
     {icon: Person, label: "Profile Management",href: "/dashboard/reader/profile"},
     
   ];
+  const adminNavItems = [
+    {icon: House, label: "Home" ,href:"/dashboard/admin"},
+    {icon:Users, label: "Users" ,href: "/dashboard/admin/users"},
+    {icon: BookOpenText, label: "Manage All Books", href: "/dashboard/admin/managebooks"},
+    {icon: CreditCardIcon, label: "View All Transactions" ,href: "/dashboard/admin/transactions"},
+   
+    
+  ];
 
    const navLinksMap={
     writer:writerNavItems,
     reader:readerNavItems,
-    
+    admin:adminNavItems,
   }
   const navItems=navLinksMap[user?.role || 'reader'];
 
