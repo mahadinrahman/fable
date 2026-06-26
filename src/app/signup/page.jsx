@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { HiEye, HiEyeOff } from "react-icons/hi"; 
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
 
 // ১. ফর্মের যাবতীয় লজিক ও UI এই কম্পোনেন্টের ভেতর থাকবে
 const RegisterForm = () => {
@@ -39,6 +40,14 @@ const RegisterForm = () => {
       toast.error('Sign Up Error');
     }
   };
+    
+
+   const handleGoogleSignin=async()=>{
+    await authClient.signIn.social({
+      provider:'google'
+    })
+  }
+
 
   return (
     <Form className="flex w-full flex-col gap-5" onSubmit={onSubmit}>
@@ -177,6 +186,23 @@ const RegisterForm = () => {
           Reset
         </Button>
       </div>
+
+      
+            <div className="relative flex py-2 items-center">
+              <div className="flex-grow border-t border-slate-200 dark:border-zinc-800"></div>
+              <span className="flex-shrink mx-4 text-xs font-bold uppercase tracking-wider text-slate-400">OR</span>
+              <div className="flex-grow border-t border-slate-200 dark:border-zinc-800"></div>
+            </div>
+      
+            <Button onClick={handleGoogleSignin}
+              variant="bordered" 
+              size="lg"
+              radius="md"
+              className="w-full font-medium border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-200 hover:bg-slate-50 dark:hover:bg-zinc-800 active:scale-[0.98] transition-all gap-2"
+            >
+              <FcGoogle size={22} />
+              Sign Up with Google
+            </Button>
 
       <p className="text-center text-sm">Already Have an Account? <Link href={`/signin?redirect=${redirectTo}`}><span className="text-blue-500 font-semibold hover:underline">Sign in Here</span></Link></p>
     </Form>

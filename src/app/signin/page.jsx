@@ -36,6 +36,12 @@ const SignInForm = () => {
       toast.error('Invalid email or password');
     }
   };
+   
+  const handleGoogleSignin=async()=>{
+    await authClient.signIn.social({
+      provider:'google'
+    })
+  }
 
   return (
     <Form className="flex w-full flex-col gap-5" onSubmit={onSubmit}>
@@ -123,7 +129,7 @@ const SignInForm = () => {
         <div className="flex-grow border-t border-slate-200 dark:border-zinc-800"></div>
       </div>
 
-      <Button 
+      <Button onClick={handleGoogleSignin}
         variant="bordered" 
         size="lg"
         radius="md"
