@@ -5,6 +5,7 @@ import { getDetailsBook } from '@/lib/api/books';
 import { getUserSession } from '@/lib/core/session';
 
 
+
 export async function POST(req) {
   try {
     const user = await getUserSession();
@@ -17,6 +18,14 @@ export async function POST(req) {
     const bookId = formData.get("bookId");
 
     const book = await getDetailsBook(bookId);
+    
+    if (!user) {
+  return NextResponse.redirect(
+    new URL('/signin', origin),
+    303
+  );
+}
+
 
     if (user?.email === book?.userEmail) {
      return NextResponse.redirect(`${origin}/books/${book._id}?error=own_book`, 303);
