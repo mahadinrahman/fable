@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { admin } from "better-auth/plugins";
+
 
 const client = new MongoClient(process.env.MONGO_DB_URI);
 const db = client.db(process.env.AUTH_DB_NAME);
@@ -17,7 +17,9 @@ export const auth = betterAuth({
   user:{
     additionalFields:{
        role:{
-        default: "reader",
+        type: "string",
+      default: "reader",
+      
        }
     }
   },
@@ -27,9 +29,7 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
         }, 
     },
-    plugins: [
-    admin({
-      defaultRole: "reader" // নতুন ইউজারদের জন্য ডিফল্ট রোল
-    })
-  ]
+     
+    
+    
 });

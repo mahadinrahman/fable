@@ -1,5 +1,5 @@
-import { serverGet } from "../core/sever";
+import { protectedGet, serverGet } from "../core/sever";
 
 export const getBookmark=async(email)=>{
-    return serverGet(`/bookmark?email=${email}`);
+    return protectedGet(`/bookmark?email=${email}`);
 }

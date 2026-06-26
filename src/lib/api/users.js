@@ -1,5 +1,5 @@
-import { serverGet } from "../core/sever";
+import { protectedGet, serverGet } from "../core/sever";
 
 export const getUsers=async()=>{
-    return serverGet(`/users`);
+    return protectedGet(`/users`);
 }

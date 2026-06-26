@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import BooksCard from '@/components/BooksCard';
 import { useRouter } from 'next/navigation';
 
-const fixedGenres = ['All', 'Fiction', 'Self-Update', 'Self-help', 'Story', 'Romantic'];
+const fixedGenres = ['All', 'Fiction', 'Self-Update', 'Self-help', 'Story', 'Romantic','Mystery'];
 
 const FilteredBooks = ({ books = [], filters }) => {
   const router = useRouter();

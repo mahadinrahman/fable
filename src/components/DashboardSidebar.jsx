@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export async function DashboardSidebar() {
    const user=await getUserSession();
-   console.log(user);
+ 
   const writerNavItems = [
     {icon: House, label: "Home" ,href:"/dashboard/writer"},
     {icon: BookOpenText, label: "Manage Ebooks", href: "/dashboard/writer/books"},

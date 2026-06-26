@@ -31,7 +31,7 @@ const RegisterForm = () => {
       role: user.role,
     
     });
-
+    
     if (data) {
       toast.success('Sign Up is successfully done');
       router.push(redirectTo);

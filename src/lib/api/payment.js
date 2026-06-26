@@ -1,5 +1,5 @@
-import { serverGet } from "../core/sever";
+import { protectedGet, serverGet } from "../core/sever";
 
 export const getPayment=async()=>{
-    return serverGet(`/payments`);
+    return protectedGet(`/payments`);
 }
