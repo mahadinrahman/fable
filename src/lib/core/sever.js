@@ -45,6 +45,16 @@ export const serverMutation =async (path,data)=>{
         },
         body:JSON.stringify(data)
     })
+
+     // handle 401,403,404
+    if(res.status===401){
+        redirect('/unauthorized');
+    }
+    else if(res.status===403){
+        redirect('/unauthorized');
+    }
+
+
       return res.json()
 }
 
@@ -58,7 +68,16 @@ export const updateMutation =async (path,data)=>{
         body:JSON.stringify(data)
     })
 
-   // handle 401,403,404
+   
+    // handle 401,403,404
+    if(res.status===401){
+        redirect('/unauthorized');
+    }
+    else if(res.status===403){
+        redirect('/unauthorized');
+    }
+
+
     return res.json()
 }
 export const deleteMutation =async (path,data)=>{
@@ -73,5 +92,12 @@ export const deleteMutation =async (path,data)=>{
     })
 
    // handle 401,403,404
+    if(res.status===401){
+        redirect('/unauthorized');
+    }
+    else if(res.status===403){
+        redirect('/unauthorized');
+    }
+    
     return res.json()
 }
