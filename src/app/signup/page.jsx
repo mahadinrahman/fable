@@ -18,6 +18,7 @@ const RegisterForm = () => {
   const searchParams = useSearchParams(); // এখন এটি নিরাপদে Suspense বাউন্ডারির ভেতরে আছে
   const redirectTo = searchParams.get("redirect") || "/";
 
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -31,15 +32,22 @@ const RegisterForm = () => {
       role: user.userRole
     
     });
-    
     if (data) {
-      toast.success('Sign Up is successfully done');
-      router.push(redirectTo);
-    }
-    if (error) {
-      toast.error('Sign Up Error');
-    }
-  };
+    // await authClient.admin.setRole({
+    //   userId: data.user.id,
+    //   role: user.userRole
+    // });
+    
+    toast.success('Sign Up is successfully done');
+    router.push(redirectTo);
+  }
+
+  if (error) {
+    toast.error('Sign Up Error');
+    console.log(error);
+  }
+    
+  }
     
 
    const handleGoogleSignin=async()=>{
@@ -90,7 +98,7 @@ const RegisterForm = () => {
 
       {/* Role */}
       <Label className="text-sm font-semibold">Role *</Label>
-      <RadioGroup defaultValue="reader" name="userRole" orientation="horizontal">
+      <RadioGroup defaultValue="reader" name="userRole" orientation="horizontal"  >
         <Radio value="reader">
           <Radio.Control>
             <Radio.Indicator className="border-2 border-slate-300 rounded-full"/>

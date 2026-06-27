@@ -1,10 +1,11 @@
 "use client";
 
+import { updateUsers } from '@/lib/actions/users';
 import React, { useState } from 'react';
-import { updateUserRole } from '@/lib/actions/users';
+import { toast } from 'react-toastify';
 
 const UsersTableClient = ({ initialUsers = [] }) => {
-    // সার্ভার থেকে আসা ডাটা দিয়ে স্টেট ইনিশিয়ালাইজ করা হচ্ছে
+   
     const [users, setUsers] = useState(
         (initialUsers || []).map(user => ({
             ...user,
@@ -13,31 +14,33 @@ const UsersTableClient = ({ initialUsers = [] }) => {
     );
     const [actionLoadingId, setActionLoadingId] = useState(null);
 
-    // ১. রোল পরিবর্তনের ফাংশন
+   
     const handleToggleRole = async (userId, currentRole) => {
         if (!userId) return;
         const newRole = currentRole === 'admin' ? 'reader' : 'admin'; 
         
         setActionLoadingId(userId);
         try {
-            await updateUserRole(userId, newRole);
+           
+            await updateUsers(userId, { role: newRole });
 
-            // সফল হলে UI আপডেট
+            
             setUsers(prevUsers => 
                 prevUsers.map(user => {
                     const id = user._id || user.id;
                     return id === userId ? { ...user, role: newRole } : user;
                 })
             );
+            toast.success(`Role is successfully changed by ${newRole}!`);
         } catch (error) {
             console.error("Failed to update role:", error);
-            alert("রোল পরিবর্তন করা যায়নি!");
+            toast.error("Failed to update role!");
         } finally {
             setActionLoadingId(null);
         }
     };
 
-    // ২. সাসপেন্ড করার ফাংশন (Local State)
+   
     const handleToggleStatus = async (userId, currentStatus) => {
         if (!userId) return;
         const newStatus = currentStatus === 'suspended' ? 'active' : 'suspended';
@@ -50,8 +53,10 @@ const UsersTableClient = ({ initialUsers = [] }) => {
                     return id === userId ? { ...user, status: newStatus } : user;
                 })
             );
+            toast.info(`User status is now ${newStatus === 'suspended' ? 'Suspended' : 'Active'}`);
         } catch (error) {
             console.error("Failed to update status:", error);
+            toast.error("Failed to update statu!");
         } finally {
             setActionLoadingId(null);
         }
@@ -73,11 +78,8 @@ const UsersTableClient = ({ initialUsers = [] }) => {
                     </thead>
                     <tbody className="divide-y divide-gray-800/60 text-sm">
                         {users.map((user, index) => {
-                            // ইউনিক কী ডিফাইন করা হলো (যা আপনার এররটি ফিক্স করবে)
                             const currentId = user._id || user.id || `user-key-${index}`;
                             const isSuspended = user.status === 'suspended';
-
-                            // ইমেজ ভ্যালিডেশন
                             const hasValidImage = user.image && user.image.startsWith('http');
 
                             return (

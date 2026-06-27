@@ -1,15 +1,7 @@
 'use server';
-import { headers } from "next/headers";
-import { auth } from "../auth";
 
-export const updateUserRole=async(userId,role)=>{
-    const data = await auth.api.setRole({
-    body: {
-        userId: userId,
-        role: role, // required
-    },
-    // This endpoint requires session cookies.
-    headers: await headers(),
-});
-return data;
+import { updateMutation } from "../core/sever";
+
+export const updateUsers =async (id,data)=>{
+   return updateMutation(`/users/${id}`,data)
 }

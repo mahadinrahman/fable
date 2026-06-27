@@ -15,15 +15,15 @@ export const auth = betterAuth({
   emailAndPassword: { 
     enabled: true, 
   }, 
-  // user:{
-  //   additionalFields:{
-  //      role:{
-  //       type: "string",
-  //     default: "reader",
-      
-  //      }
-  //   }
-  // },
+  user:{
+    additionalFields:{
+       role:{
+       
+      defaultValue: "reader",
+      input:true
+       }
+    }
+  },
   socialProviders: {
         google: { 
             clientId: process.env.GOOGLE_CLIENT_ID, 
@@ -31,11 +31,22 @@ export const auth = betterAuth({
         }, 
     },
     
-     plugins: [
-    admin({
-      defaultRole: "reader" // নতুন ইউজারদের জন্য ডিফল্ট রোল
-    })
-  ]
+  //    plugins: [
+  //   admin({
+  //     defaultRole: "reader" ,
+  //     roles:{reader: {
+  //         name: "reader",
+  //         description: "Can read content",
+  //         permissions: ["read", "write"],
+  //       },
+  //       writer: {
+  //         name: "writer",
+  //         description: "Can write content",
+  //         permissions: ["read", "write"],
+  //       },
+  //     }
+  //   })
+  // ]
     
     
 });

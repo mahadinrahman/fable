@@ -1,12 +1,12 @@
 import UsersTableClient from '@/components/UsersTableClient';
-import { getUsersList } from '@/lib/api/users';
+import { getUsers} from '@/lib/api/users';
 import React from 'react';
 
 
 const UsersPage = async () => {
     // সার্ভার সাইড থেকে ডাটা ফেচ করা হচ্ছে
-    const data = await getUsersList();
-    const users = data?.users || [];
+    const users = await getUsers();
+    
 
     // স্ট্যাটিস্টিকস ক্যালকুলেশন
     const totalUsers = users.length;
