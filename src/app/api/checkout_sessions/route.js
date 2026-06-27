@@ -58,7 +58,8 @@ export async function POST(req) {
         bookPrice: book.price.toString(),
         bookImageIcon: book.coverImageUrl,
         bookGenre: book.genre,
-        sellerEmail: book.userEmail
+        sellerEmail: book.userEmail,
+        sellerImage:book.userImage
       }
     });
 

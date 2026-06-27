@@ -1,4 +1,5 @@
 import Banner from '@/components/Banner';
+import Featured1 from '@/components/Featured1';
 import FeaturedBooks from '@/components/FeaturedBooks';
 import React from 'react';
 
@@ -8,6 +9,7 @@ const page = () => {
       
       <Banner></Banner>
       <FeaturedBooks></FeaturedBooks>
+      <Featured1></Featured1>
     </div>
   );
 };

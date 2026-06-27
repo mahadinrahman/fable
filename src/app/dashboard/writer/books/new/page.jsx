@@ -95,6 +95,7 @@ const AddEbookForm = () => {
         userId: user?.id,
         userEmail: user?.email,
         userName: user?.name,
+        userImage:user?.image,
         status: "published" // 👈 এখানে status: "published" অ্যাড করা হয়েছে
       };
 
