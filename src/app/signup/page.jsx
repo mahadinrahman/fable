@@ -28,7 +28,7 @@ const RegisterForm = () => {
       password: user.password,
       name: user.name,
       image: user.image,
-      role: user.role,
+      role: user.userRole
     
     });
     
@@ -90,7 +90,7 @@ const RegisterForm = () => {
 
       {/* Role */}
       <Label className="text-sm font-semibold">Role *</Label>
-      <RadioGroup defaultValue="reader" name="role" orientation="horizontal">
+      <RadioGroup defaultValue="reader" name="userRole" orientation="horizontal">
         <Radio value="reader">
           <Radio.Control>
             <Radio.Indicator className="border-2 border-slate-300 rounded-full"/>
