@@ -138,7 +138,7 @@ const UsersTableClient = ({ initialUsers = [] }) => {
                                     </td>
 
                                     {/* অ্যাকশন বাটনসমূহ */}
-                                    <td className="px-6 py-4 whitespace-nowrap text-right text-xs font-medium space-x-3">
+                                    <td className="px-6 py-4 flex whitespace-nowrap text-right text-xs font-medium space-x-3">
                                         <button 
                                             disabled={actionLoadingId === currentId}
                                             onClick={() => handleToggleRole(user._id || user.id, user.role)}
