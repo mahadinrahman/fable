@@ -8,7 +8,7 @@ const FeaturedBooks = async () => {
     const books = await getAllBooks() || [];
     
     // Sobar sheshe add kora 6ta boi ber korar jonno array take reverse kore slice kora holo
-    const latestBooks = [...books].reverse().slice(0, 6);
+    const latestBooks = [...books.data].slice(0, 6);
 
     return (
         <section className="py-12 max-w-7xl mx-auto px-4">

@@ -2,12 +2,13 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import BooksCard from '@/components/BooksCard';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const fixedGenres = ['All', 'Fiction', 'Self-Update', 'Self-help', 'Story', 'Romantic','Mystery'];
 
 const FilteredBooks = ({ books = [], filters }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState(filters?.search || '');
   const [selectedGenre, setSelectedGenre] = useState(filters?.genre || 'All');
@@ -30,15 +31,23 @@ const FilteredBooks = ({ books = [], filters }) => {
 
   const totalItems = filteredBooks.length;
 
-  useEffect(() => {
-    const sp = new URLSearchParams();
+ useEffect(() => {
+  const sp = new URLSearchParams(searchParams.toString());
 
-    if (searchQuery) sp.set('search', searchQuery);
-    if (selectedGenre !== 'All') sp.set('genre', selectedGenre);
+  if (searchQuery) {
+    sp.set("search", searchQuery);
+  } else {
+    sp.delete("search");
+  }
 
-    const path = `?${sp.toString()}`;
-    router.push(path, { scroll: false });
-  }, [router, selectedGenre, searchQuery]);
+  if (selectedGenre !== "All") {
+    sp.set("genre", selectedGenre);
+  } else {
+    sp.delete("genre");
+  }
+
+  router.replace(`?${sp.toString()}`, { scroll: false });
+}, [searchQuery, selectedGenre]);
 
   const hasActiveFilters = searchQuery.trim() !== '' || selectedGenre !== 'All';
 
