@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 Fable – Digital Ebook Sharing & Publishing Platform
 
-## Getting Started
+**Fable** is a comprehensive MERN stack digital platform that bridges the gap between ebook lovers, avid readers, collectors, and talented writers. It democratizes access to literature by allowing readers to browse, discover, and securely purchase original ebooks, while empowering emerging writers to reach a global audience and manage their digital creations.
 
-First, run the development server:
+## 🎯 Purpose of the Project
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Traditional reading is often limited by physical bookstores or libraries. **Fable** aims to solve this by providing an online ecosystem for original literature. From a technical standpoint, this project serves to demonstrate advanced MERN stack engineering, including complex role-based access control (RBAC), secure multi-party authentication, automated payment processing pipelines, and responsive dynamic analytics.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🔗 **Live Client:** https://fable-jet.vercel.app
+🔗 **Live Server:** https://fable-server-zeta.vercel.app
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Key Features
 
-To learn more about Next.js, take a look at the following resources:
+### 👤 User & Authentication Flow
+* **Hybrid Authentication:** Multi-option registration using Email/Password or Google OAuth (integrated via `BetterAuth`).
+* **Role-Based Access Control (RBAC):** Post-registration onboarding allowing selection between **Reader (User)** and **Writer** roles.
+* **Secure Sessions:** Secure JWT-based session management with a 7-day expiration policy, built to prevent session drops upon browser reloading.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📖 Reader Features
+* **Dynamic Exploration:** Advanced browse engine featuring text search, genre filtering, and sort functionality.
+* **Immersive Previews:** Comprehensive information cards containing description previews, price tags, genres, and a "Sold" badge indicator.
+* **Secure Payment Flow:** Instant payment processing using Stripe API. Purchased material instantly updates context states to render full content access.
+* **Personalization:** Ability to bookmark favorite books and track historical readings directly on dashboards.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### ✍️ Writer Features
+* **Verification Gate:** One-time verification payment infrastructure to activate writer capabilities.
+* **Creative Freedom:** Robust CRUD operations to Upload, Edit, and Manage ebooks alongside structural publish/unpublish toggles.
+* **Ebook Performance Tracking:** Dedicated sales analytical history dashboard showing metrics on sold materials.
 
-## Deploy on Vercel
+### 🛡️ Admin & Operational Capabilities
+* **System Oversight:** Centralized command center allowing role reassignments (User/Writer/Admin).
+* **Global Content Controls:** Executive permissions to override publish statuses or delete materials across the platform.
+* **Financial Tracking:** Consolidated ledger displaying all platform-wide transaction entries.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Design & UX/UI Elements
+
+* **Anti-Gobindo Design Paradigm:** Designed with meticulous mathematical alignment, balanced negative white spacing, and high-quality modern layouts.
+* **Fluid Animations:** Seamless UI transitions powered by **Framer Motion**, featuring staggered element reveals on scrolling, hover scaling, and hero text fade-ins.
+* **Skeleton Loading Architecture:** Integrated custom Tailwind layout skeletons providing premium content transitions and preventing visual layout shifts.
+
+---
+
+## 🛠️ Technologies & npm Packages Used
+
+### Frontend
+* **Framework/Core:** React.js, React Router DOM (Dynamic Routing)
+* **State Management & Auth:** JWT Decode, BetterAuth (Google OAuth integration)
+* **Styling & Motion:** Tailwind CSS, Framer Motion, React Icons
+* **Payment Gateways:** `@stripe/stripe-js`, `@stripe/react-stripe-js`
+* **Image Hosting:** ImgBB API Integration
+
+### Backend & Database
+* **Environment:** Node.js, Express.js
+* **Database:** MongoDB, Mongoose (Schema mapping & strict querying)
+* **Security:** JSON Web Tokens (JWT), `bcryptjs`, `dotenv`, `cors`
+
+---
+
+## 👨‍💻 Author
+
+Developed with ❤️ by **Mahadin Rahman** ✨  
+*Feel free to reach out for collaborations or feedback!*
